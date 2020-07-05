@@ -1,0 +1,13 @@
+<%- include('ek/header', {bot, user, path}) %>
+<div class="container">
+	<div class="jumbotron">
+		<div align="center">
+      <form method="POST">
+      <input type="text" id="red-reason" name="red-reason" placeholder="Please write the reason for rejection." required>
+   
+        <button class="btn btn-danger" type="sumbit">reject</button>
+      </form>
+    </div>
+</div>
+</div>
+<% include ./ek/footer %>

@@ -1,0 +1,140 @@
+<%- include('ek/header', {bot, user, path}) %>
+<div class="container">
+	<div class="jumbotron">
+		<div align="center">
+      
+<% if (bot.ayar.has('bots')) { %>
+
+<!-- All Botlar -->
+<a class="btn btn-default" style="background-color:#E7776C; color:#78828E; width:100%;" data-toggle="collapse" data-target="#all">Website Bots</a>
+<div id="all" class="collapse in">
+<div style="overflow-x:auto;">
+<table class="table" style="background-color:#545454">
+<tr>
+<th>Bot Name</th>
+<th>BotID</th>
+<th>Prefix</th>
+<th>Owner</th>
+<th>OwnerID</th>
+<th>Status</th>
+</tr>
+
+<%for(var i = 0; i < Object.keys(bot.ayar.fetch('bots')).length; i++) {%>
+<% let id = Object.keys(bot.ayar.fetch('bots'))[i] %>
+
+<td scope="row"><%=bot.ayar.fetch(`bots.${id}.name`)%></td>
+<td><%=bot.ayar.fetch(`bots.${id}.id`)%></td>
+<td><%=bot.ayar.fetch(`bots.${id}.prefix`)%></td>
+<td><%=bot.ayar.fetch(`bots.${id}.owner`)%></td>
+<td><%=bot.ayar.fetch(`bots.${id}.ownerid`)%></td>
+<td><%=bot.ayar.has(`bots.${id}.status`) ? bot.ayar.fetch(`bots.${id}.status`) : 'Pending'%></td>
+</tr>
+<% } %>
+
+</table>
+  </div></div>
+<br><br>
+
+<!-- Pending one bots -->
+<a class="btn btn-default" style="background-color:#E7776C; color:#78828E; width:100%;" data-toggle="collapse" data-target="#Pending">Pending Bots</a>
+<div id="Pending" class="collapse in">
+<div style="overflow-x:auto;">
+<table class="table" style="background-color:#545454">
+<tr>
+<th>Operation</th>
+<th>Bot Name</th>
+<th>BotID</th>
+<th style="width:10%;">Prefix</th>
+</tr>
+
+<%for(var i = 0; i < Object.keys(bot.ayar.fetch('bots')).length; i++) {%>
+<% let id = Object.keys(bot.ayar.fetch('bots'))[i] %>
+<% if (bot.ayar.fetch(`bots.${id}.status`) === 'Pending' || bot.ayar.has(`bots.${id}.status`) === false) { %>
+<tr>
+<td><a class="btn btn-success" href="/botmanager/approve/<%=id%>">Approve<i aria-hidden="true"></i></a>
+<a class="btn btn-danger" href="/botmanager/rejected/<%=id%>">Remove<i aria-hidden="true"></i></a>
+<a class="btn btn-primary" href="https://discordapp.com/oauth2/authorize?client_id=<%=id%>&scope=bot&permissions=0">Invite (Perm: 0)</a>
+<a class="btn btn-primary" href="https://discordapp.com/oauth2/authorize?client_id=<%=id%>&scope=bot&permissions=8">Invite (Perm: 8)</a></td>
+<td><%=bot.ayar.fetch(`bots.${id}.name`)%></td>
+<td><%=bot.ayar.fetch(`bots.${id}.id`)%></td>
+<td><%=bot.ayar.fetch(`bots.${id}.prefix`)%></td>
+</tr>
+<% } %>
+<%}%>
+</table>
+</div>
+</div>
+  <br><br>
+
+<!-- Notified Bots -->
+<a class="btn btn-default" data-toggle="collapse" style="background-color:#E7776C; color:#78828E; width:100%;" data-target="#Approved">Approved Bots</a>
+<div id="Approved" class="collapse in">
+	<div style="overflow-x:auto;">
+		<table class="table" style="background-color:#545454">
+		<tr>
+		<th>Operation</th>
+		<th>Bot Name</th>
+		<th>BotID</th>
+		<th style="width:10%;">Prefix</th>
+		</tr>	
+      
+		<%for(var i = 0; i < Object.keys(bot.ayar.fetch('bots')).length; i++) {%>
+		<% let id = Object.keys(bot.ayar.fetch('bots'))[i] %>
+		<% if (bot.ayar.fetch(`bots.${id}.status`) === 'Approved') { %>
+	  <tr>
+		<td><a class="btn btn-warning" href="/botmanager/wait/<%=id%>">Pending<i aria-hidden="true"></i></a>
+		<a class="btn btn-danger" href="/botmanager/rejected/<%=id%>">Remove<i aria-hidden="true"></i></a>
+		<a class="btn btn-primary" href="https://discordapp.com/oauth2/authorize?client_id=<%=id%>&scope=bot&permissions=0">Invite (Perm: 0)</a>
+		<a class="btn btn-primary" href="https://discordapp.com/oauth2/authorize?client_id=<%=id%>&scope=bot&permissions=8">Invite (Perm: 8)</a></td>
+		<td><%=bot.ayar.fetch(`bots.${id}.name`)%></td>
+		<td><%=bot.ayar.fetch(`bots.${id}.id`)%></td>
+		<td><%=bot.ayar.fetch(`bots.${id}.prefix`)%></td>
+		</tr>
+		<% } %>
+		<%}%>
+		</table>
+		</div>
+</div>
+  <br><br>
+
+<!-- castaway Bots -->
+<a class="btn btn-default" data-toggle="collapse" style="background-color:#E7776C; color:#78828E; width:100%;" data-target="#deprecated">Deleted Bots</a>
+<div id="deprecated" class="collapse in">
+	<div style="overflow-x:auto;">
+		<table class="table" style="background-color:#545454">
+		<tr>
+		<th>Operation</th>
+		<th>Bot Name</th>
+		<th>BotID</th>
+		<th style="width:10%;">Prefix</th>
+		</tr>	
+		<%for(var i = 0; i < Object.keys(bot.ayar.fetch('bots')).length; i++) {%>
+		<% let id = Object.keys(bot.ayar.fetch('bots'))[i] %>
+		<% if (bot.ayar.fetch(`bots.${id}.status`) === 'Removed') { %>
+		<tr>
+		<td><a class="btn btn-success" href="/botmanager/approve/<%=id%>">Approve<i aria-hidden="true"></i></a>
+		<a class="btn btn-warning" href="/botmanager/wait/<%=id%>">Pending<i aria-hidden="true"></i></a>
+		<a class="btn btn-primary" href="https://discordapp.com/oauth2/authorize?client_id=<%=id%>&scope=bot&permissions=0">Invite (Perm: 0)</a>
+		<a class="btn btn-primary" href="https://discordapp.com/oauth2/authorize?client_id=<%=id%>&scope=bot&permissions=8">Invite (Perm: 8)</a></td>
+		<td><%=bot.ayar.fetch(`bots.${id}.name`)%></td>
+		<td><%=bot.ayar.fetch(`bots.${id}.id`)%></td>
+		<td><%=bot.ayar.fetch(`bots.${id}.prefix`)%></td>
+		</tr>
+		<% } %>
+		<%}%>
+		</table>
+		</div>
+</div>
+  <br><br>
+
+<% } else {%>
+<h5 style="color:#545454">
+Sorry, There is no Discord4Bots in System Right Now!
+</h5>
+<% } %>
+
+</div>
+</div>
+</div>
+</div></div><div></div>
+<% include ./ek/footer %>

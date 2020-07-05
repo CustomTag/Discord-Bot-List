@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+ <meta name="msapplication-TileColor" content="#4D77CD">
+ <meta name="msapplication-TileImage" content="<%=bot.ayar.fetch(`bots.${id}.avatar`)%>">
+ <meta name="theme-color" content="#4D77CD">
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <meta name="description" content="<%=bot.ayar.fetch(`bots.${id}.ShortDesc`)%>">
+ <meta name="keywords" content="Bots, Discord, English">
+ <meta property="og:title" content="Discord4Bots | <%=bot.ayar.fetch(`bots.${id}.name`)%>" />
+ <meta property="og:type" content="Website" />
+ <meta property="og:url" content="" />
+ <meta property="og:description" content="<%=bot.ayar.fetch(`bots.${id}.ShortDesc`)%>" />
+ <meta property="og:image" content="<%=bot.ayar.fetch(`bots.${id}.avatar`)%>" />
+ <meta itemprop="description" content="<%=bot.ayar.fetch(`bots.${id}.ShortDesc`)%>">
+ <meta itemprop="image" content="<%=bot.ayar.fetch(`bots.${id}.avatar`)%>">
+<head>
+
+<%- include('ek/header', {bot, user, path}) %>
+  
+ <div class="post post-single">
+                  <br>
+                        <div class="post-meta">
+                            <div align="center"><span class="Owner"><i class="fa fa-clock-o"></i> <strong>Owner: </strong><%=bot.ayar.fetch(`bots.${id}.owner`)%></span><a style="color:#222"> | </a>
+                            <span class="Vote"><a class="Votes"><i class="fa fa-star"></i> <%=bot.ayar.fetch(`bots.${id}.vote`) || 0%> Votes</a></span>
+                        <% if(bot.ayar.has(`bots.${id}.certificate`) === true) { %><!-- hi im haroon --->
+                         | <span><img src="https://cdn.discordapp.com/emojis/522886304615366676.png" width="20px" height="20px"> <a style="color:#DF7A45">Certified</a></span>
+                         <% } %>
+                          </div>
+                        </div><br>
+                        <div class="post-thumbnail">
+                            <div align="center"><img src="<%=bot.ayar.fetch(`bots.${id}.avatar`)%>"
+                                width="300" height="300" class="Bot avatar"><h3 class="Bot name"><%=bot.ayar.fetch(`bots.${id}.name`)%></h3><h5 class="ShortDesc"><%=bot.ayar.fetch(`bots.${id}.ShortDesc`)%></h5></div>
+                          
+        <div alig ="left">
+          <button class="botprefix btn btn-default"><%=bot.ayar.fetch(`bots.${id}.prefix`)%></button>
+          
+      <%if (bot.ayar.has(`bots.${id}.support`)){%>
+                 <a href="<%=bot.ayar.fetch(`bots.${id}.support`)%>"><button class="btn btn-warning support">Support</button></a>
+            <%} %>
+          
+          <%if (bot.ayar.has(`bots.${id}.site`)){%>
+                 <a href="<%=bot.ayar.fetch(`bots.${id}.site`)%>"><button class="btn btn-warning website">Website</button></a>
+            <%} %>
+          
+          <%if (bot.ayar.has(`bots.${id}.github`)){%>
+                 <a href="<%=bot.ayar.fetch(`bots.${id}.github`)%>"><button class="btn btn-warning github">Github</button></a>
+            <%} %>
+          </div>
+      <div align="center">                    
+  <% if (!user) { %>
+        <a href="/login"><button class="vote btn btn-primary vote">Login To Vote <i class="fa fa-lock"></i></button></a>
+                    <% } else { %>
+        <a href="/bot/<%=id%>/vote"><button id="vote" href="/bot/<%=id%>/vote" class="btn btn-primary vote" type="sumbit"><i aria-hidden="true"></i>Vote</button></a>
+                      <% } %><br>
+            
+          <a href="https://discordapp.com/oauth2/authorize?client_id=<%=id%>&scope=bot&permissions=8"><button class="btn btn-success davetet"><i aria-hiddden="true"></i>Invite</button></a>
+        <a href="/bot/<%=id%>/report"><button class="btn btn-danger report"><i aria-hidden="true"></i>Report</button></a>
+        
+          <% if (user) { %>
+          <% if(bot.ayar.fetch(`bots.${id}.ownerid`) === user.id) { %>
+          <a href="/user/<%=user.id%>/panel/<%=id%>/edit"><button class="btn btn-primary edit"><i aria-hiddden="true"></i>Edit</button></a>
+        <a href="/user/<%=user.id%>/panel/<%=id%>/delete"><button class="delete btn btn-danger"><i aria-hidden="true"></i>Delete</button></a>
+          <% } %>
+        <% } %>
+                      
+                </div>  
+  </div>
+  <br>
+  <div class="longexplanation" class="jimbotron" align="center"><br>
+    <% if (bot.ayar.has(`bots.${id}.longexplanation`) || bot.ayar.fetch(`bots.${id}.longexplanation`) !== undefined || bot.ayar.fetch(`bots.${id}.longexplanation`) !== null) { %>
+<% var xx %>
+<% for (var ii = 0; ii < bot.tags.length; ii++) { %>
+  <% if(bot.ayar.fetch(`bots.${id}.longexplanation`).includes(bot.tags[ii]) === false) {%>
+    <% xx = false %>
+ <% } %>
+    <% if (bot.ayar.fetch(`bots.${id}.longexplanation`).includes(bot.tags[ii]) === true) { %>
+     <% x = true %>
+    <% } %>
+<% } %>
+
+<% if (x === false) { %>
+  <p><%=bot.ayar.fetch(`bots.${id}.longexplanation`)%></p>
+<% } else if (x === true) { %>
+    <% let $ = bot.htmll.load(bot.ayar.fetch(`bots.${id}.longexplanation`)) %>
+  <%- $.html() %>
+    <% } %>
+    
+    <% } else { %>
+    <p>Here is all Discord4Bots</p>
+    <% } %>
+    
+  <br></div>
+        
+        </div><br>
+          <div class="post-actions">
+                  <div class="post-tags">
+                    <div align="center">
+                      <%if(Array.isArray(bot.ayar.fetch(`bots.${id}.tag`)) === false) {%>
+                      <span class="etiket btn-btn-default"><a><%=bot.ayar.fetch(`bots.${id}.tag`)%></a></span>
+                      <% } else { %>
+                      <% for(var xx = 0; xx < bot.ayar.fetch(`bots.${id}.tag`).length; xx++) {%>
+                      <span class="etiket btn btn-default"><a><%=bot.ayar.fetch(`bots.${id}.tag`)[xx]%></a></span>
+                    <% }%>
+                      <% }%>
+                    </div>
+                   </div>
+              </div>
+      </div>
+</div>
+
+<% include ./ek/footer %>

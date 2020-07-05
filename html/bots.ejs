@@ -1,0 +1,102 @@
+<%- include('ek/header', {bot, user, path}) %>
+
+<div class="container">
+
+<h3 align="center" style="color:#626262">
+<strong>Discord4Bots
+  </strong></h3>
+  <div align="center"><p>Here are all the bots in the system. <br> (The bots are ranked proportionally according to the votes!)</p></div>
+  <br>
+    
+  <div align="center">
+    <input type="search" placeholder="Search" id="Search" name="Search">
+    <br>
+     <div class="select-style">
+    <select id="etiketselect">
+      <option disabled selected>Choose a label.</option>
+      <option value="Close filter">Close filter</option>
+      <option value="Moderation">Moderation</option>
+      <option value="Music">Music</option>
+      <option value="Settings">Settings</option>
+      <option value="Entertainment">Entertainment</option>
+      <option value="Web Panel">Web Panel</option>
+    </select>
+</div>
+    
+    <p style="color:#F0F0F0">
+      <a style="color:red">Not:</a> You can search for bots by typing the bot name, library, short description, owner name and tags. <br> You can search for bots by selecting the bots' tags. 
+    </p>
+    
+  </div>
+  <br><br><br>
+    
+  <div class="row">
+  
+   <% if (bot.ayar.has('bots')) { %>
+  <% const sorted = Object.keys(bot.ayar.fetch('bots')).sort((a, b) => { return (bot.ayar.fetch(`bots.${b}.vote`) || 0) - (bot.ayar.fetch(`bots.${a}.vote`) || 0) }) %>
+  <% const top = sorted.splice(0, Object.keys(bot.ayar.fetch('bots')).length) %>
+  <% const map = top.map(x=>x) %>
+	<% for(var i = 0; i < Object.keys(bot.ayar.fetch('bots')).length; i++) { %>
+  <% let idd = map[i] %>
+   <% if(bot.ayar.has(`bots.${idd}.status`) === true) { %>
+		<% if (bot.ayar.fetch(`bots.${idd}.status`) === "Approved") { %>
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="card card-lg botcard" style="background-color:#fff; width:16rem;">
+    <div value="<%=bot.useful.seg(bot.ayar.fetch(`bots.${idd}.name`), 5)%>" align="center" class="card-img">
+  
+          <a name="Search Picture" id="Search Picture" href="/bot/<%=idd%>" style="color:#fff"><img value="<%=bot.ayar.fetch(`bots.${idd}.name`)%>" src="<%=bot.ayar.fetch(`bots.${idd}.avatar`)%>" style="width:100%" alt="<%=bot.ayar.fetch(`bots.${idd}.name`)%>"><%=bot.useful.seg(bot.ayar.fetch(`bots.${idd}.name`), 5)%></a>
+        
+          <% if(bot.ayar.has(`bots.${idd}.certificate`) === true) { %>
+       
+<br><a style="color:#F0BD36"><img src="https://cdn.discordapp.com/emojis/522886304615366676.png" width="30px" height="30px"> </a><br>
+<% } %>
+<div class="badge badge-primary"><strong style='color: white;'>Votes: </strong><span style='color:whitesmoke;text-transform: none;'><%=bot.ayar.fetch(`bots.${idd}.vote`)||0%></span></div>
+                    <div class="badge badge-success"><%=bot.ayar.fetch(`bots.${idd}.library`)%></div>
+          </div>
+      <div align="center" style="background-color:#fff" class="card-body">
+                               <div class="card-title">
+                                  <h4><a style="color:#222"><%=bot.useful.seg(bot.ayar.fetch(`bots.${idd}.name`), 5)%></a></h4>
+                                <h6 style="font-size:16px; color:#222"><%=bot.ayar.fetch(`bots.${idd}.owner`)%></h6></div>         
+                        
+                              <p class="card-text" style="color:#222"><%=bot.ayar.fetch(`bots.${idd}.ShortDesc`)%></p>
+                              <span id="labels"><%=bot.ayar.fetch(`bots.${idd}.tag`).join(' | ')%></span>
+                               <hr>
+                              <h6 align="center"><a href="/bot/<%=idd%>" style="font-size:20px; color:#222; background-color:#fff">view</a> <b style="color:grey">|</b> 
+                              <a href="https://discordapp.com/oauth2/authorize?client_id=<%=idd%>&scope=bot&permissions=8" style="font-size:20px; color:#222; background-color:#fff">Invite</a></h6>
+                            </div>
+                       </div><br>
+    </div>
+      <% } %>
+    <% } %>
+   <% } %>
+   <% } else {%>
+   <center><h5 style="color:#EAEAEA">
+     Sorry, There is no Discord4Bots in System Right Now!
+     </h5></center>
+   <% } %>
+   </div></div></div></div>
+
+<script>
+$(document).ready(function(){
+ $("#Search").keyup(function(){
+    var value = $(this).val().toLowerCase();
+    $(".col-12, .col-sm-6, .col-md-4 .card").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+  //etiket filtresi
+  $("#tag select").change(function(){
+    var value = $(this).val();
+    if (value === 'noneFilter') {
+      window.location.reload(true);
+      return
+    }
+    $(".col-12, .col-sm-6, .col-md-4 .card").filter(function(){
+      $(this).toggle($(this).text().indexOf(value) > -1)
+    });
+  })
+  ;
+});
+</script>
+  
+<% include ./ek/footer %>

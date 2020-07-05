@@ -1,0 +1,83 @@
+<%- include('ek/header', {bot, user, path}) %>
+<div class="container">
+  <div align="center" class="jumbotron">
+
+       <img src="https://cdn.discordapp.com/avatars/<%=kisi.id%>/<%=kisi.avatar%>.gif?size=512" class="rounded-circle panel">
+       <h3 style="color:#fff"><%=kisi.username%>#<%=kisi.discriminator%></h3>
+       <h5 style="color:#fff">Profile Info</h5>
+
+       <% if (bot.profile[kisi.id]) { %>
+        <h6 style="color:#fff">Name: <%= bot.profile[kisi.id].name || "Unknown" %></h6><br>
+        <h6 style="color:#fff">Age: <%= bot.profile[kisi.id].age || "Unknown" %></h6><br>
+        <h6 style="color:#fff">Biography: <%= bot.profile[kisi.id].bio %></h6>
+        <h6 style="color:#ffff">Favorite coding language: <%= bot.profile[kisi.id].favlib || "No" %></h6><br>
+        <h6 style="color:#fff">Coding languages it knows: <%= bot.profile[kisi.id].libs || "No" %></h6>
+       <% } else { %>
+       <% } %>
+    
+     <a href="/user/<%=kisi.id%>/profile/adjust" class="btn btn-default" style="background-color:#333; color:#fff">Edit Profile</a>
+
+  </div>
+
+  <h3 style="color:#222"><%=kisi.tag%> Your Discord4Bots</h3>
+<br>
+  <% if (bot.ayar.has('bots')) { %>
+    <% if (bot.ayar.has(`kbots.${user.id}`)) { %>   
+
+<%for(var i = 0; i < Object.keys(bot.ayar.fetch('bots')).length; i++) {%>
+<% var idd = Object.keys(bot.ayar.fetch('bots'))[i] %>
+<%  if (bot.ayar.fetch(`bots.${idd}.ownerid`) === kisi.id) { %>
+<div class="col-12 col-sm-6 col-md-4">
+     <div class="card card-lg botcard" style="background-color:#fff; width:16rem;">
+  <div align="center" class="card-img">
+      <a href="/bot/<%=idd%>"><img src="<%=bot.ayar.fetch(`bots.${idd}.avatar`)%>" class="card-img-top" alt="Bot Avatar"></a>
+    <% if (bot.ayar.has(`bots.${idd}.certificate`) === true) { %>
+    <br><br><a style="color:#DF7A45"><img src="https://cdn.discordapp.com/emojis/522886304615366676.png" width="30px" height="30px"></a><br>
+    <% } %>
+
+   <%  if(bot.ayar.fetch(`bots.${idd}.status`) === 'Pending' || !bot.ayar.has(`bots.${idd}.status`)) { %>
+    <div class="badge badge-warning">Pending</div>
+    <% } %>
+
+    <%  if(bot.ayar.fetch(`bots.${idd}.status`) === 'Removed') { %>
+    <div class="badge badge-danger">Removed</div>
+    <% } %>
+
+    <%  if(bot.ayar.fetch(`bots.${idd}.status`) === 'Approved') { %>
+    <div class="badge badge-success">Approved</div>
+    <% } %>
+
+    <div class="badge badge-primary"><strong style='color: white;'>Votes: </strong><span style='color:whitesmoke;text-transform: none;'><%=bot.ayar.fetch(`bots.${idd}.vote`)||0%></span></div>
+                 <div style="background-color:grey; color:#fff" class="badge badge-default"><%=bot.ayar.fetch(`bots.${idd}.library`)%></div>
+                         </div>
+                          <div align="center" style="background-color:#fff" class="card-block">
+                             <div class="card-title">
+                               <h4><a style="color:#222"><%=bot.useful.seg(bot.ayar.fetch(`bots.${idd}.name`), 5)%></a></h4>
+                             <h6 style="font-size:17px; color:#222"><%=bot.ayar.fetch(`bots.${idd}.owner`)%></h6></div>         
+                     
+                           <p class="card-text" style="color:#222"><%=bot.ayar.fetch(`bots.${idd}.ShortDesc`)%></p>
+                            <hr>
+                            <h6 align="center"><a href="/bot/<%=idd%>" style="font-size:20px; color:#222; background-color:#fff">view</a> <b style="color:grey">|</b> 
+                              <a href="https://discordapp.com/oauth2/authorize?client_id=<%=idd%>&scope=bot&permissions=8" style="font-size:20px; color:#222; background-color:#fff">Invite</a></h6>
+                            </div>
+                    </div><br>
+</div>
+<% } %>
+<% } %>
+</div>
+   
+   <% } else if (!bot.ayar.has(`kbots.${user.id}`)) {%>
+        <h5 style="color:#222">
+          Sorry, you didn't add your bot on Discord4Bots!
+   </h5>
+   <% } %>
+   <% } else if (!bot.ayar.has('bots')) {%>
+        <h5 style="color:#222">
+          Sorry, you didn't add your bot on Discord4Bots!
+   </h5>
+   <% } %>
+
+     </div>
+   </div>
+ <br>
+<% include ./ek/footer %>
