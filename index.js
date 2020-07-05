@@ -15,7 +15,7 @@ client.profile = profile
 client.settings = {
   "prefix": "c!", //prefix
   "oauthSecret": "hCeVH3zaAC_7GYf_tsMac8hq9qGEiIaI", // bot secreti
-	"callbackURL": "https://discord4bots.glitch.me/callback", // change the urls of my site with "/ callback"!
+	"callbackURL": "https://discord4bots.herokuapp.com//callback", // change the urls of my site with "/ callback"!
 	"kayıt": "714504216370085929", // approved, rejected, you have applied, you will write the ID of the channel where the recordings will go
   "color": "RANDOM" // get the color of the embeds from here, something like that
 };
