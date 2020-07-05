@@ -1,0 +1,32 @@
+<<%- include('ek/header', {bot, user, path}) %>
+	<div align="center">
+		<h2 style="color: #222;">Deleting Bot</h2>
+	
+    <div class="jumbotron">
+ <form method="post">
+   <style> h3 { color:#fff; } p { color:#fff } </style> 
+   <div style="color: #222;" align="center">
+		
+     <h3>
+       Are you sure?
+     </h3>
+     
+     <p>
+      If you really want to delete your bot from our system, press the <a style="color:red"> Delete </a> button.
+
+       <br><br>
+       <i><a style="color:red">Not:</a> When you delete your bot from the system, there is no problem adding the same bot or another bot to the system again. </i>
+     </p>
+     
+     <!--<h6 style="color:red">
+       Şuan silme kapalıdır. Yapım aşamasındadır.
+     </h6>-->
+    
+				<div align="center" style="width: 100%; text-align: left; margin-top: 20px;">
+					<center><button id="botid" name="botid" value="<%=id%>" style="border-radius: 100px" type="submit" class="btn btn-danger"><i class="fa fa-remove fa-fw"></i> Clear<i aria-hidden='true'></i></button>
+          </center></div>
+		</div>
+  </form>
+    </div></div>
+	</div>
+<% include ./ek/footer %>

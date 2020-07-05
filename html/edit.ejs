@@ -1,0 +1,175 @@
+<%- include('ek/header', {bot, user, path}) %>
+<div class="container is-fullhd">
+	<div class="row justify-content-md-center">
+		<h2 style="color: #ffffff;">Bot Editing</h2>
+	</div>
+ <form method="post">
+				
+   <div align="center" class="jumbotron" style="color:#fff; font-size: 20px;">
+   <br>
+		<div><i aria-hidden="true"></i>Prefix</div>
+		<div>
+      <input type="text" style="text-align: center;" name="prefix" id="prefix"
+									value="<%=bot.ayar.fetch(`bots.${id}.prefix`)%>" required="required">
+     </div>
+     
+     <div><i aria-hidden="true"></i>Library</div>
+      <div class="select-style">
+     <select id="library" name="library" required="required">
+       <option value="<%=bot.ayar.fetch(`bots.${id}.library`)%>" selected><%=bot.ayar.fetch(`bots.${id}.library`)%></option>
+       <option value="discordcr" >discordcr</option>
+        
+          <option value="Nyxx" >Nyxx</option>
+        
+          <option value="Discord.Net" >Discord.Net</option>
+        
+          <option value="DSharpPlus" >DSharpPlus</option>
+        
+          <option value="Nostrum" >Nostrum</option>
+        
+          <option value="coxir" >coxir</option>
+        
+          <option value="DiscordGo" >DiscordGo</option>
+        
+          <option value="Discord4J" >Discord4J</option>
+        
+          <option value="Javacord" >Javacord</option>
+        
+          <option value="JDA" >JDA</option>
+        
+          <option value="discord.js" >discord.js</option>
+        
+          <option value="Eris" >Eris</option>
+        
+          <option value="Discordia" >Discordia</option>
+        
+          <option value="RestCord" >RestCord</option>
+        
+          <option value="Yasmin" >Yasmin</option>
+        
+          <option value="disco" >disco</option>
+        
+          <option value="discord.py" >discord.py</option>
+        
+          <option value="discordrb" >discordrb</option>
+        
+          <option value="serenity" >serenity</option>
+        
+          <option value="SwiftDiscord" >SwiftDiscord</option>
+        
+          <option value="Sword" >Sword</option>
+        
+        <option value="Other" >Other</option>
+     </select>
+     </div>
+     
+     <div><i aria-hidden="true"></i>Bot OwnerID</div>
+     <input type="text" style="color:lightgrey; text-align: center;" name="owner" id="owner"
+                  value="<%=user.id%>" disabled>
+     
+     <div><i aria-hidden="true"></i>Short Description</div>
+		<div>
+      <input type="text" style="text-align: center; height:60px" name="short-description" id="short-description"
+                value="<%=bot.ayar.fetch(`bots.${id}.ShortDesc`)%>" maxlength="50" required="required">
+     </div>
+     <br>
+     <div><i aria-hidden="true"></i>Long Description<a</div>
+		<div>
+      <% var xx %>
+<% for (var ii = 0; ii < bot.tags.length; ii++) { %>
+  <% if(bot.ayar.fetch(`bots.${id}.longexplanation`).includes(bot.tags[ii]) === false) {%>
+    <% xx = false %>
+ <% } %>
+    <% if (bot.ayar.fetch(`bots.${id}.longexplanation`).includes(bot.tags[ii]) === true) { %>
+     <% x = true %>
+    <% } %>
+<% } %>
+      
+        <!--<pre style="height:150px; background-color:#222; color:#fff;" name="uzun-aciklama" id="uzun-aciklama"><code>
+        <%= //bot.ayar.fetch(`${id}.longexplanation`) %>
+        </code></pre>-->
+      
+      <textarea style="height:150px; background-color:#222; color:#fff;" name="long-description" id="long-description" value="<%=bot.ayar.fetch(`${id}.longexplanation`)%>" minlength="50" required="required">      
+        <%= bot.ayar.fetch(`bots.${id}.longexplanation`) %>
+      </textarea>
+     </div>
+     <br>
+     <div><i aria-hidden="true"></i>labels <a style="color:red">*</a></div>
+     <div>
+      <select multiple id="label" name="label" style="border-radius:4px; background-color:#222; color:#fff">
+        <% if(bot.ayar.fetch(`bots.${id}.tag`).includes('Moderation')) { %>
+        <option value="Moderation" selected>Moderation</option>
+        <% } else { %>
+        <option value="Moderation">Moderation</option>
+        <% } %>
+        <% if(bot.ayar.fetch(`bots.${id}.tag`).includes('Music')) { %>
+        <option value="Music" selected>Music</option>
+        <% } else { %>
+        <option value="Music">Music</option>
+        <% } %>
+        <% if(bot.ayar.fetch(`bots.${id}.tag`).includes('Settings')) { %>
+        <option value="Settings" selected>Settings</option>
+        <% } else { %>
+        <option value="Settings">Settings</option>
+        <% } %>
+        <% if(bot.ayar.fetch(`bots.${id}.tag`).includes('Entertainment')) { %>
+        <option value="Entertainment" selected>Entertainment</option>
+        <% } else { %>
+        <option value="Entertainment">Entertainment</option>
+        <% } %>
+        <% if(bot.ayar.fetch(`bots.${id}.tag`).includes('Web Panel')) { %>
+        <option value="Web Panel" selected>Web Panel</option>
+        <% } else { %>
+        <option value="Web Panel">Web Panel</option>
+        <% } %>
+       </select>
+       <p>
+         <a style="color:red">Not: </a><a style="color:lightgrey">multiple labels can be selected. If you are on the computer, hold down the <i> ctrl </i> key and select the labels.</a>
+       </p>
+     </div>
+     <br>
+     <div><i aria-hidden="true"></i>Website URL</div>
+		<div>
+		<% if(!bot.ayar.has(`bots.${id}.site`)) { %>
+      <input type="url" style="text-align: center;" name="botsite" id="botsite"
+                placeholder="If applicable, type in the website url.">
+                <% } else { %>
+                    <input type="url" style="text-align: center;" name="botsite" id="botsite"
+                value="<%=bot.ayar.fetch(`bots.${id}.site`)%>">
+                <% } %>
+     </div>
+     <br>
+     <div><i aria-hidden="true"></i>Github URL</div>
+		<div>
+      <% if(!bot.ayar.has(`bots.${id}.github`)) { %>
+      <input type="url" style="text-align: center;" name="github" id="github"
+                placeholder="If available, type github url.">
+                <% } else { %>
+                    <input type="url" style="text-align: center;" name="github" id="github"
+                value="<%=bot.ayar.fetch(`bots.${id}.github`)%>">
+                <% } %>
+     </div>
+     <br>
+     <div><i aria-hidden="true"></i>Support Server URL</div>
+		<div>
+      <% if(!bot.ayar.has(`bots.${id}.support`)) { %>
+      <input type="url" style="text-align: center;" name="botsupport" id="botsupport"
+                placeholder="If you have a bot, write the Discord support server URL.">
+                <% } else { %>
+                    <input type="url" style="text-align: center;" name="botsupport" id="botsupport"
+                value="<%=bot.ayar.fetch(`bots.${id}.support`)%>">
+                <% } %>
+     </div>
+   
+   
+
+				<div style="width: 100%; text-align: center; margin-top: 20px;">
+					<button style="border-radius: 100px; background-color:#00a1ff" type="submit" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Edit<i aria-hidden='true'></i></button>
+				</div>
+   </div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+<% include ./ek/footer %>
