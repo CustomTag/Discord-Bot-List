@@ -7,9 +7,9 @@ exports.run = async (client, message, args, msg) => {
   .setColor('RANDOM')
   .setAuthor("Discord4Bots - information", client.user.avatarURL)
   .addField("Website Creator","CustomTag#0001")
-	.addField("Add a bot?","[Click here](https://discord4bots.glitch.me/addbot)")
+	.addField("Add a bot?","[Click here](https://discord4bots.herokuapp.com/addbot)")
   .addField("Hosted by","[Glitch](https://glitch.com)")
-  .addField("Website","[Click here](https://discord4bots.glitch.me/)")
+  .addField("Website","[Click here](https://discord4bots.herokuapp.com/)")
   .addField("Help Cmds","c!help")
   message.channel.send({embed: embed})
   
