@@ -48,7 +48,7 @@
     <% if (bot.ayar.fetch(`bots.${idd}.status`) === "Approved") { %>
       <% if (bot.ayar.has(`bots.${idd}.certificate`) === true) { %>
       <div class="col-12 col-sm-6 col-md-4">
-        <div class="card card-lg botcard" style="background-color:#fff; width:16rem;">
+        <div class="card card-lg botcard" data-auctions="1-1" style="background-color:#fff; width:16rem;">
      <div align="center" class="card-img">
          <a href="/bot/<%=idd%>"><img src="<%=bot.ayar.fetch(`bots.${idd}.avatar`)%>" class="card-img-top" alt="Bot Avatar"></a>
       <br><br><a style="color:#F0BD36"><img src="https://cdn.discordapp.com/emojis/522886304615366676.png" width="30px" height="30px"></a><br>   

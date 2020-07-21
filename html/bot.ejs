@@ -7,7 +7,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1" />
  <meta name="description" content="<%=bot.ayar.fetch(`bots.${id}.ShortDesc`)%>">
  <meta name="keywords" content="Bots, Discord, English">
- <meta property="og:title" content="Discord4Bots | <%=bot.ayar.fetch(`bots.${id}.name`)%>" />
+ <meta property="og:title" content="<%=bot.ayar.fetch(`bots.${id}.name`)%>" />
  <meta property="og:type" content="Website" />
  <meta property="og:url" content="" />
  <meta property="og:description" content="<%=bot.ayar.fetch(`bots.${id}.ShortDesc`)%>" />
@@ -17,20 +17,21 @@
 <head>
 
 <%- include('ek/header', {bot, user, path}) %>
+<html>
   
  <div class="post post-single">
                   <br>
                         <div class="post-meta">
                             <div align="center"><span class="Owner"><i class="fa fa-clock-o"></i> <strong>Owner: </strong><%=bot.ayar.fetch(`bots.${id}.owner`)%></span><a style="color:#222"> | </a>
                             <span class="Vote"><a class="Votes"><i class="fa fa-star"></i> <%=bot.ayar.fetch(`bots.${id}.vote`) || 0%> Votes</a></span>
-                        <% if(bot.ayar.has(`bots.${id}.certificate`) === true) { %><!-- hi im haroon --->
+                        <% if(bot.ayar.has(`bots.${id}.certificate`) === true) { %>
                          | <span><img src="https://cdn.discordapp.com/emojis/522886304615366676.png" width="20px" height="20px"> <a style="color:#DF7A45">Certified</a></span>
                          <% } %>
                           </div>
                         </div><br>
                         <div class="post-thumbnail">
-                            <div align="center"><img src="<%=bot.ayar.fetch(`bots.${id}.avatar`)%>"
-                                width="300" height="300" class="Bot avatar"><h3 class="Bot name"><%=bot.ayar.fetch(`bots.${id}.name`)%></h3><h5 class="ShortDesc"><%=bot.ayar.fetch(`bots.${id}.ShortDesc`)%></h5></div>
+                            <div align="center"><img src="<%=bot.ayar.fetch(`bots.${id}.avatar`)%>" class="rounded-circle"width="300" height="300">
+                              <h3 class="Bot name"><%=bot.ayar.fetch(`bots.${id}.name`)%></h3><h5 class="ShortDesc"><%=bot.ayar.fetch(`bots.${id}.ShortDesc`)%></h5></div>
                           
         <div alig ="left">
           <button class="botprefix btn btn-default"><%=bot.ayar.fetch(`bots.${id}.prefix`)%></button>
@@ -108,5 +109,5 @@
               </div>
       </div>
 </div>
-
+<html>
 <% include ./ek/footer %>

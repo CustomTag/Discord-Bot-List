@@ -9,8 +9,8 @@
       }
     }
     %>
-       <img src="https://cdn.discordapp.com/avatars/<%=kisi.id%>/<%=kisi.avatar%>.gif?size=512" class="rounded-circle panel">
-       <h5 style="color:#fff"><%=kisi.username%>#<%=kisi.discriminator%></h5>
+       <img src="https://cdn.discordapp.com/avatars/<%=kisi.id%>/<%=kisi.avatar%>.png?size=512" class="rounded-circle panel">
+       <h5 style="color:#fff"><%=kisi.username%></h5>
        <a href="/user/<%=kisi.id%>/profile" class="btn btn-default" style="background-color:#333; color:#fff"><%=txt%></a>
        <% if (user) { %>
        <% if (user.id === kisi.id) { %>
@@ -20,4 +20,3 @@
   </div>
 </div>
 </div></div>
-<% include ./ek/footer %>

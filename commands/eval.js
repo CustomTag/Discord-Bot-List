@@ -32,8 +32,8 @@ exports.run = async (client, message, args, msg) => {
 		if (evaled.constructor.name === 'Promise') evalEmbed.setDescription(`\`\`\`\n${evaled}\n\`\`\``)
 		else evalEmbed.setDescription(`\`\`\`js\n${evaled}\n\`\`\``)
 		const newEmbed = new Discord.RichEmbed()
-			.addField('📤 Login', `\`\`\`javascript\n${code}\n\`\`\``)
-			.addField('📥 Exit', `\`\`\`js\n${evaled}\`\`\``)
+			.addField('📥 Login', `\`\`\`javascript\n${code}\n\`\`\``)
+			.addField('📤 Exit', `\`\`\`js\n${evaled}\`\`\``)
 			.setColor(client.settings.color)
 		message.channel.send(newEmbed);
 	}

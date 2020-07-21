@@ -1,59 +1,79 @@
 const Discord = require('discord.js');
-const db = require('quick.db');
+const db = require('quick.db')
+const request = require('request')
 
-exports.run = async (client, message, args, msg) => { // who r u he jappe chill he is fixing the domain
-	if(!args[0]) {
-		const embed = new Discord.RichEmbed()
-			.setDescription(`You must write an ID!`)
-			.setColor(client.settings.color)
-		message.channel.send({embed})
-		return
-	}
-  
-  if(!client.users.has(args[0])) {
-		const embed = new Discord.RichEmbed()
-			.setDescription(`Invalid ID!`)
-			.setColor(client.settings.color)
-		message.channel.send({embed})
-		return
-	}
-  
-  if(!client.users.get(args[0]).bot) {
-		const embed = new Discord.RichEmbed()
-			.setDescription(`Sorry, this person is not a bot, what the head?!`)
-			.setColor(client.settings.color)
-		message.channel.send({embed})
-		return
-	}
-  
-	if (db.has('bots')) {
-			if (Object.keys(db.fetch('bots')).includes(args[0]) === false)  return message.reply("Sorry, the bot that wrote the ID is missing in the system!")
-	} else {
-    return message.reply("No bots are in the system!")
-  }
-  
-  let id = client.ayar['botid']
-  
-  const embed = new Discord.RichEmbed()
-  .setTitle("Bot Info")
-  .setColor("RANDOM")
-  .addField({name: "Bot Name", value:db.fetch(`bots.${id}.name`)})
-  .addField({name: "Bot Owner", value:db.fetch(`bots.${id}.owner`)})
-  .addField({name: "Short Description", value:db.fetch(`bots.${id}.ShortDesc`)}) // yay yey
-  
-  message.channel.send(embed)
+exports.run = async (client, msg, args) => {
+    let prefix = await db.fetch(`${msg.guild.id}.prefix`) || client.settings.prefix
+    if(!args[0]) {
+      return msg.channel.send(new Discord.RichEmbed().setDescription('Please enter a bot ID!').setColor("RANDOM"))
+    }
+    request(`https://discord4bots.glitch.me/api/bots/${args[0]}`, function (error, response, body) {
+    if (error) return msg.channel.send('Error:', error);
+    else if (!error) {
+      var a = JSON.parse(body).name
+      var b = JSON.parse(body).id
+      var c = `${JSON.parse(body).avatar}`
+      var d = JSON.parse(body).prefix
+      var e = JSON.parse(body).library
+      var f = `${JSON.parse(body).owner} (${JSON.parse(body).ownerid})`
+      var g = JSON.parse(body).ShortDesc
+      var h = JSON.parse(body).labels
+      if(JSON.parse(body).support === 'Unspecified') {
+        var i = 'Unspecified'
+      } else {
+        var i = `[${a} Support Server](${JSON.parse(body).support})`
+      }
+      if(JSON.parse(body).site === 'Unspecified') {
+        var j = 'Unspecified'
+      } else {
+      var j = JSON.parse(body).site
+      }
+      if(JSON.parse(body).github === 'Unspecified')  {
+        var k = 'Unspecified'
+      } else {
+        var k = `[Github](${JSON.parse(body).github})`
+      }
+      var l = JSON.parse(body).certificate
+      var m = JSON.parse(body).status
+      var n = JSON.parse(body).votes
+    }
+      
+      request(`https://discord4bots.glitch.me/api/allbots`, function (errorr, responsee, bodyy) {
+    if (errorr) return msg.channel.send('Error:', errorr);
+    else if (!errorr) {
+    if (bodyy.includes(args[0])=== false) return msg.reply("There is no bot in this ID system!")
+    }
+       })
+      
+    const embed = new Discord.RichEmbed()
+    .setColor("RANDOM")
+    .setThumbnail(c)
+    .setTitle(`Discord4Bots - BotSearch`)
+    .setDescription(`${a} (${b}) [${n} Votes]`, c)
+    .addField('Prefix', d)
+    .addField('Owner', f)
+    .addField('Short Description', g)
+    .addField('labels', h)
+    .addField('Certificate', l)
+    .addField('Status', m)
+    .addField("Website", j)
+    .addField('Github', k)
+    .addField('Support Server', i)
+    .setFooter('Searching for Bot in https://discord4bots.glitch.me/ System.')
+    msg.channel.send({embed})
+  })
 };
 
 exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	aliases: ["info", "search"],
-	permLevel: 0,
-	kategori: 'authorized'
-}
+  enabled: true,
+  guildOnly: true,
+  aliases: ['bot', 'search', 'find'],
+  permLevel: 0,
+  kategori: 'general'
+};
 
 exports.help = {
-	name: 'botinfo',
-	description: 'Get info for a bot!',
-	usage: 'botinfo [botid]'
-}
+  name: 'botinfo',
+  description: 'Lets You Search For Bots In The Discord4Bots System.',
+  usage: 'botinfo [id]'
+};
